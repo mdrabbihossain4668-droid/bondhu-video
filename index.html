@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>বন্ধু ভিডিও</title>
+<style>
+body{margin:0;background:#101014;color:white;font-family:Arial,sans-serif}
+header{padding:18px;background:#20202a;font-size:24px;font-weight:bold}
+main{padding:16px}
+.card{background:#24242e;border-radius:14px;padding:18px;margin:16px 0}
+button{background:#ff2864;color:white;border:0;border-radius:10px;padding:12px 18px;font-size:16px;margin:5px}
+video{width:100%;border-radius:12px;background:#000}
+input{max-width:90%;padding:12px;border-radius:8px}
+#feed{margin-top:16px}
+</style>
+</head>
+<body>
+<header>▶ বন্ধু ভিডিও</header>
+<main>
+<div class="card">
+<h2>স্বাগতম বন্ধু! ❤️</h2>
+<p>তোমার ভিডিও বেছে নাও এবং দেখো।</p>
+<input type="file" id="pick" accept="video/*">
+</div>
+<div id="feed"></div>
+<div class="card">
+<h3>আমার প্রোফাইল</h3>
+<input id="username" placeholder="তোমার নাম">
+<button onclick="saveName()">নাম সেভ</button>
+<p id="welcome"></p>
+</div>
+</main>
+<script>
+document.getElementById('pick').onchange=function(){
+const f=this.files[0];
+if(!f)return;
+const url=URL.createObjectURL(f);
+const box=document.createElement('div');
+box.className='card';
+const v=document.createElement('video');
+v.src=url;v.controls=true;v.playsInline=true;
+const like=document.createElement('button');
+like.textContent='❤️ লাইক 0';
+let n=0;
+like.onclick=()=>{n++;like.textContent='❤️ লাইক '+n};
+box.append(v,like);
+document.getElementById('feed').prepend(box);
+};
+function saveName(){
+const n=document.getElementById('username').value.trim();
+document.getElementById('welcome').textContent=n?'স্বাগতম, '+n+'!':'তোমার নাম লেখো বন্ধু।';
+}
+</script>
+</body>
+</html>
